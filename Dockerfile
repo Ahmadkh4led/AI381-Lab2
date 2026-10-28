@@ -9,10 +9,12 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 WORKDIR /build
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip setuptools \
+RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt \
-    && pip install --no-cache-dir --upgrade "msgpack>=1.2.3" "urllib3>=2.8.0"
-
+    && pip install --no-cache-dir --upgrade \
+       "setuptools>=78.1.1" \
+       "msgpack>=1.2.3" \
+       "urllib3>=2.8.0"
 # Runtime stage
 FROM python:3.14.0-slim-bookworm AS runtime
 
