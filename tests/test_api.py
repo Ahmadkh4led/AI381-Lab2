@@ -1,9 +1,8 @@
 
 from fastapi.testclient import TestClient
 
-from src.app.main import app
 import src.app.main as api
-
+from src.app.main import app
 
 VALID_CUSTOMER = {
     "tenure_months": 72,
