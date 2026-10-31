@@ -1,4 +1,3 @@
-
 # AI381 Lab 2 – Bring Your Own Model
 
 ![AI381 Lab 2 CI](https://github.com/Ahmadkh4led/AI381-Lab2/actions/workflows/main.yml/badge.svg)
@@ -11,7 +10,7 @@ This project serves a machine learning model through a FastAPI REST API. The app
 
 - FastAPI REST API
 - Machine learning prediction endpoint
-- Input validation
+- Input validation using Pydantic
 - Automated tests using pytest
 - Multi-stage Docker build
 - Non-root runtime user
@@ -32,13 +31,17 @@ Build the Docker image and start the API with this single command:
 docker build -t ai381-lab2 . && docker run --rm -p 8000:8000 ai381-lab2
 ```
 
+The API will be available at:
+
+`http://localhost:8000`
+
 ## API Endpoints
 
 ### Health Check
 
 **GET** `/health`
 
-Example:
+Check whether the API is running:
 
 ```bash
 curl http://localhost:8000/health
@@ -47,14 +50,16 @@ curl http://localhost:8000/health
 Expected response:
 
 ```json
-{"status":"ok"}
+{
+  "status": "ok"
+}
 ```
 
 ### Make a Prediction
 
 **POST** `/predict`
 
-Example:
+Send customer information to get the churn probability:
 
 ```bash
 curl -X POST http://localhost:8000/predict \
@@ -65,7 +70,9 @@ curl -X POST http://localhost:8000/predict \
 Example response:
 
 ```json
-{"churn_probability":0.008}
+{
+  "churn_probability": 0.008
+}
 ```
 
 ## Testing
@@ -86,12 +93,31 @@ ruff check src tests
 
 GitHub Actions runs linting and tests on pull requests and pushes to the `main` branch.
 
-On pushes to `main`, the workflow also builds the Docker image, scans it with Trivy, and publishes it to GHCR using the commit SHA as the image tag.
+On pushes to `main`, the workflow also:
+
+- Builds the Docker image.
+- Scans the image with Trivy.
+- Publishes the image to GitHub Container Registry (GHCR).
+- Tags the image using the commit SHA.
 
 ## Container Registry
 
-GitHub Container Registry: `ghcr.io/ahmadkh4led/ai381-lab2`
+GitHub Container Registry:
+
+`ghcr.io/ahmadkh4led/ai381-lab2`
+
+Pull the published image using:
+
+```bash
+docker pull ghcr.io/ahmadkh4led/ai381-lab2:3478ee82e7687c833216e8b4ac62f4f39484e607
+```
+
+Image Digest:
+
+```text
+sha256:fcfd919fe585baebcd54e115ee79c34dd43c4b2d846e8dd47c5bce77d8e40c2d
+```
 
 ## Repository
 
-https://github.com/Ahmadkh4led/AI381-Lab2
+[AI381-Lab2 – GitHub](https://github.com/Ahmadkh4led/AI381-Lab2)
