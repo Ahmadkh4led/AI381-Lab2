@@ -3,14 +3,12 @@ from pathlib import Path
 
 import joblib
 import pandas as pd
-
 from sklearn.compose import ColumnTransformer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
